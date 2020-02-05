@@ -84,19 +84,8 @@ DATABASES = {
 }
 
 DATABASES['default'] = dj_database_url.config(conn_max_age=600)
-DATABASES['default'] = dj_database_url.config(default='postgres://...')
-DATABASES['default'] = dj_database_url.parse('postgres://...', conn_max_age=600)
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#     }
-# }
-
-# db_from_env = dj_database_url.config(conn_max_age=500)
-# DATABASES['default'].update(db_from_env)
-# print(DATABASES['default'])
+DATABASES['default'] = dj_database_url.config(default='postgres://dmrxygipgiqvxr:3976b20513bc6417fb8b8314eea15b004c02be749ac10155abfe7697283bc318@ec2-52-202-185-87.compute-1.amazonaws.com:5432/d66gpflpbfod53')
+DATABASES['default'] = dj_database_url.parse('postgres://dmrxygipgiqvxr:3976b20513bc6417fb8b8314eea15b004c02be749ac10155abfe7697283bc318@ec2-52-202-185-87.compute-1.amazonaws.com:5432/d66gpflpbfod53', conn_max_age=600)
 
 
 # Password validation
