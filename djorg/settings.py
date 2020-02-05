@@ -32,6 +32,7 @@ ALLOWED_HOSTS = config('ALLOWED_HOSTS').split(',')
 # Application definition
 
 INSTALLED_APPS = [
+    'rest_framework',
     'notes',
     'django.contrib.admin',
     'django.contrib.auth',
