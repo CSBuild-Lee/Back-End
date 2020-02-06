@@ -79,12 +79,12 @@ class Player(models.Model):
     
     def __eat_current_loc__(self):
         # update player calories
-        self.calories += self.Room().value
+        self.calories += self.room().value
         # change room to eaten
-        self.Room().isDead = True
+        self.room().isDead = True
         self.num_rooms_eaten += 1
 
-    def Room(self):
+    def room(self):
         return Room.objects.get(id=self.room_id)
 # objects to return
 
