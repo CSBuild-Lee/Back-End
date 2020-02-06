@@ -37,7 +37,14 @@ class Room(models.Model):
     value = models.IntegerField(default = 0)
     isDead = models.BooleanField(default=False)
 
-    # def __str__(self)
+    def __str__(self):
+        string = {
+            'id': self.id,
+            'type': self.room_type,
+            'value': self.value,
+            'isDead': self.isDead,
+            }
+        return string
 
 class Player(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)

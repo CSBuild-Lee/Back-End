@@ -50,7 +50,7 @@ def initialize(request):
         r.id = 1
         r.value = room_dict[r.room_type]
         r.save()
-
+    user.player = Player()
     player = user.player
     player_id = player.id
     uuid = player.uuid
@@ -58,11 +58,6 @@ def initialize(request):
 
     def get_queryset(self):
         user = self.request.user
-
-        # if user.is_anonymous:
-        #     return Room.objects.none()
-        # else:
-        #     return Room.objects.filter(user=user)
 
     rooms = Room.objects.all()
     return JsonResponse({rooms, {'value': player.calories, 'killed': player.num_rooms_eaten}, {'room_id':1}})
@@ -103,16 +98,3 @@ def move(request):
     else:
         players = room.playerNames(player_id)
         return JsonResponse({'name':player.user.username, 'title':room.title, 'description':room.description, 'players':players, 'error_msg':"You cannot move that way."}, safe=True)
-
-    # def get_queryset(self):
-    #     user = self.request.user
-
-    #     if user.is_anonymous:
-    #         return Player.objects.none()
-    #     else:
-    #         return Player.objects.filter(user=user)
-
-
-
-
-
