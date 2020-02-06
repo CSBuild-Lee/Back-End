@@ -45,7 +45,6 @@ def move(request):
     room = player.room()
     player.eat(direction)
     player.save()
-    players = nextRoom.playerNames(player_id)
     return JsonResponse({rooms, {'value': player.calories, 'killed': player.num_rooms_eaten}, {'room_id':1}})
 
 @csrf_exempt
