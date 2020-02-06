@@ -1,4 +1,6 @@
 from random import randint
+from django.db import models
+from django.contrib.auth.models import User
 
 room_dict = {
     'Lettuce' : 50,
@@ -14,38 +16,42 @@ room_dict = {
 }
 
 class Room:
-    def __init__(self):
+    def __init__(self, row, col):
         random_num = randint(0,len(list(room_dict.keys()))-1)
         self.room_type = list(room_dict.keys())[random_num]
         self.calories = room_dict[self.room_type]
         self.eaten = False
+        # id from 1-100
+        self.id = (10*row + col) + 1
 
 # Board is 10 x 10 list
 def init_board():
     rows = []
     for row_num in range(10):
         rows.append([])
-        for _ in range(10):
-            rows[row_num].append(Room())
+        for col_num in range(10):
+            rows[row_num].append(Room(row_num, col_num))
     return rows
 
-class Player:
+class Player(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     def __init__(self):
-        self.row = randint(0,9)
-        self.col = randint(0,9)
-        self.calories = 0
+        
+        self.row = models.IntegerField(default = randint(0,9))
+        self.col = models.IntegerField(default = randint(0,9))
+        self.calories = models.IntegerField(default = 0)
         self.board = init_board()
         # changing room where player spawns to eaten without updating calories
         # so that room will only show player and not vegetable
         self.board[self.row][self.col].eaten = True
+        self.num_rooms_eaten = 0
     
     def eat(self, direction):
         self.__move__(direction)
         self.__eat_current_loc__()
 
     def __move__(self, direction):
-        #TODO form of error
-        error = 'error'
+        error = 'error, can not move in that direction'
 
         if direction == 'Up':
             # check if player can move
@@ -78,3 +84,6 @@ class Player:
         self.calories += self.board[self.row][self.col].calories
         # change room to eaten
         self.board[self.row][self.col].eaten = True
+        self.num_rooms_eaten += 1
+# objects to return
+
