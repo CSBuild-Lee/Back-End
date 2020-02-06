@@ -18,14 +18,19 @@ room_dict = {
 
 class Room(models.Model):
     # id?
+    id = models.IntegerField(default = 0)
     room_type = models.CharField(max_length = 600 , default = random.choice(list(room_dict.keys())))
-    # print(room_dict)
-    # print(room_type)
-    # print(dir(room_type))
     value = models.IntegerField(default = 0)
     isDead = models.BooleanField(default=False)
 
-    # def __str__(self)
+    def __str__(self):
+        string = {
+            'id': self.id,
+            'type': self.room_type,
+            'value': self.value,
+            'isDead': self.isDead,
+            }
+        return string
 
 class Player(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
