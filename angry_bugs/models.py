@@ -3,14 +3,14 @@ from uuid import uuid4
 from django.contrib.auth.models import User
 import random
 
-# Create your models here.
-class Note(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
-    title = models.CharField(max_length=200)
-    content = models.TextField(blank=True)
+# # Create your models here.
+# class Note(models.Model):
+#     id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
+#     title = models.CharField(max_length=200)
+#     content = models.TextField(blank=True)
 
-class PersonalNote(Note):   # Inherits from Note!
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+# class PersonalNote(Note):   # Inherits from Note!
+#     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
 
 
@@ -41,7 +41,7 @@ class Room(models.Model):
 
 class Player(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    uuid = models.UUIDField(default=uuid.uuid4, unique=True)
+    uuid4 = models.UUIDField(default=uuid4, unique=True)
     row = models.IntegerField(default = 0)
     col = models.IntegerField(default = 0)
     calories = models.IntegerField(default = 0)

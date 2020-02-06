@@ -24,7 +24,7 @@ from djorg.api import *
 from .views import RegisterView, CustomLoginView
 
 router = routers.DefaultRouter()
-router.register(r'notes', PersonalNoteViewSet)
+# router.register(r'notes', PersonalNoteViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
