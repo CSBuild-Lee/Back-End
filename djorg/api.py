@@ -24,9 +24,11 @@ def initialize(request):
         r.value = room_dict[r.room_type]
         r.save()
 
+    user.player = Player()
+
     player = user.player
     rooms = Room.objects.all()
-    
+
     return JsonResponse({rooms, {'value': player.calories, 'killed': player.num_rooms_eaten}, {'room_id':1}})
 
 
