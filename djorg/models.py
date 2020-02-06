@@ -1,6 +1,7 @@
 import random
 from django.db import models
 from django.contrib.auth.models import User
+import uuid
 
 room_dict = {
     'Lettuce' : 50,
@@ -16,26 +17,33 @@ room_dict = {
 }
 
 class Room(models.Model):
-    # id?
+    id = models.IntegerField(default = 0)
     room_type = models.CharField(default = random.choice(room_dict.keys()))
     value = models.IntegerField(default = room_dict[room_type])
     isDead = models.BooleanField(default=False)
 
-    def __str__(self)
+    def __str__(self):
+        string = {
+            'id': self.id,
+            'type': self.room_type,
+            'value': self.value,
+            'isDead': self.isDead
+        }
+        return string
 
 class Player(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    uuid = models.UUIDField(default=uuid.uuid4, unique=True)
+    row = models.IntegerField(default = 0)
+    col = models.IntegerField(default = 0)
+    calories = models.IntegerField(default = 0)
+    room_id = models.IntegerField(default = 1)
+    num_rooms_eaten = models.IntegerField(default = 0)
+    # changing room where player spawns to eaten without updating calories
+    # so that room will only show player and not vegetable
+    # Room().isDead = True
 
-    def __init__(self):
-        
-        self.row = models.IntegerField(default = 0)
-        self.col = models.IntegerField(default = 0)
-        self.calories = models.IntegerField(default = 0)
-        self.room_id = models.IntegerField(default = 1)
-        # changing room where player spawns to eaten without updating calories
-        # so that room will only show player and not vegetable
-        self.Room().isDead = True
-        self.num_rooms_eaten = models.IntegerField(default = 0)
+    
     
     def eat(self, direction):
         self.__move__(direction)
