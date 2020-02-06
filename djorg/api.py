@@ -25,11 +25,8 @@ def initialize(request):
         r.save()
 
     player = user.player
-    player_id = player.id
-    uuid = player.uuid
-    room = player.room()
-
     rooms = Room.objects.all()
+    
     return JsonResponse({rooms, {'value': player.calories, 'killed': player.num_rooms_eaten}, {'room_id':1}})
 
 
