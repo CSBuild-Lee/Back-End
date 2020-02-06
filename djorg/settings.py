@@ -32,6 +32,7 @@ ALLOWED_HOSTS = config('ALLOWED_HOSTS').split(',')
 # Application definition
 
 INSTALLED_APPS = [
+    'corsheaders',
     'rest_auth.registration',
     'allauth',
     'allauth.account',
@@ -50,8 +51,12 @@ INSTALLED_APPS = [
 
 SITE_ID = 1
 
+CORS_ORIGIN_ALLOW_ALL = True
+
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
