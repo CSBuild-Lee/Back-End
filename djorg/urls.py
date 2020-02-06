@@ -19,7 +19,8 @@ from rest_framework import routers
 from django.conf.urls import url
 from rest_framework.authtoken import views
 
-from notes.api import PersonalNoteViewSet
+from angry_bugs.api import *
+from djorg.api import *
 from .views import RegisterView, CustomLoginView
 
 router = routers.DefaultRouter()
@@ -35,7 +36,9 @@ urlpatterns = [
     url(r'^rest-auth/', include('rest_auth.urls')),
     # url(r'^admin/', admin.site.urls),
     url(r'^api-auth/', include('rest_framework.urls')),
-    url(r'^rest-auth/registration/', include('rest_auth.registration.urls'))
+    url(r'^rest-auth/registration/', include('rest_auth.registration.urls')),
+    url('init', initialize),
+    url('move', move),
 ]
 
 

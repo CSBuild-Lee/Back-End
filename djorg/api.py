@@ -1,5 +1,3 @@
-# copied from example project
-
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 # from pusher import Pusher
@@ -10,7 +8,7 @@ from rest_framework.decorators import api_view
 import json
 from .models import Room, room_dict, Player
 
-# instantiate pusher
+# # instantiate pusher
 # pusher = Pusher(app_id=config('PUSHER_APP_ID'), key=config('PUSHER_KEY'), secret=config('PUSHER_SECRET'), cluster=config('PUSHER_CLUSTER'))
 
 @csrf_exempt
