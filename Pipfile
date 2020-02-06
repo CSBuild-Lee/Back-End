@@ -12,6 +12,9 @@ gunicorn = "*"
 dj-database-url = "*"
 whitenoise = "*"
 psycopg2 = "*"
+djangorestframework = "*"
+django-rest-auth = {extras = ["with_social"],version = "*"}
+django-allauth = "*"
 
 [requires]
 python_version = "3.8"
