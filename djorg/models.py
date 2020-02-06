@@ -18,17 +18,16 @@ room_dict = {
 
 class Room(models.Model):
     id = models.IntegerField(default = 0)
-    room_type = models.CharField(default = random.choice(room_dict.keys()))
+    room_type = models.CharField(default = random.choice(list(room_dict.keys())))
     value = models.IntegerField(default = room_dict[room_type])
     isDead = models.BooleanField(default=False)
 
     def __str__(self):
-        string = {
-            'id': self.id,
+        string = {'id': self.id,
             'type': self.room_type,
             'value': self.value,
             'isDead': self.isDead
-        }
+            }
         return string
 
 class Player(models.Model):
@@ -42,8 +41,6 @@ class Player(models.Model):
     # changing room where player spawns to eaten without updating calories
     # so that room will only show player and not vegetable
     # Room().isDead = True
-
-    
     
     def eat(self, direction):
         self.__move__(direction)
