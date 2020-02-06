@@ -25,3 +25,9 @@ class PersonalNoteViewSet(viewsets.ModelViewSet):
                 return PersonalNote.objects.none()
             else:
                 return PersonalNote.objects.filter(user=user)
+
+
+
+
+
+

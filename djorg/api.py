@@ -1,5 +1,3 @@
-# copied from example project
-
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from pusher import Pusher
@@ -71,8 +69,8 @@ def move(request):
         return JsonResponse({'name':player.user.username, 'title':room.title, 'description':room.description, 'players':players, 'error_msg':"You cannot move that way."}, safe=True)
 
 
-@csrf_exempt
-@api_view(["POST"])
-def say(request):
-    # IMPLEMENT
-    return JsonResponse({'error':"Not yet implemented"}, safe=True, status=500)
+# @csrf_exempt
+# @api_view(["POST"])
+# def say(request):
+#     # IMPLEMENT
+#     return JsonResponse({'error':"Not yet implemented"}, safe=True, status=500)
