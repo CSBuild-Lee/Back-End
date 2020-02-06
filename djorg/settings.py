@@ -105,8 +105,8 @@ DATABASES = {
 }
 
 DATABASES['default'] = dj_database_url.config(conn_max_age=600)
-DATABASES['default'] = dj_database_url.config(default=postgres://pvcvoqabbnimwc:13a852ed979a16a5895618996df76a4d495d2e7129e476c2349d9820f08b3e36@ec2-3-234-109-123.compute-1.amazonaws.com:5432/dclie5pj83daos)
-DATABASES['default'] = dj_database_url.parse(postgres://pvcvoqabbnimwc:13a852ed979a16a5895618996df76a4d495d2e7129e476c2349d9820f08b3e36@ec2-3-234-109-123.compute-1.amazonaws.com:5432/dclie5pj83daos, conn_max_age=600)
+DATABASES['default'] = dj_database_url.config(default='postgres://pvcvoqabbnimwc:13a852ed979a16a5895618996df76a4d495d2e7129e476c2349d9820f08b3e36@ec2-3-234-109-123.compute-1.amazonaws.com:5432/dclie5pj83daos')
+DATABASES['default'] = dj_database_url.parse('postgres://pvcvoqabbnimwc:13a852ed979a16a5895618996df76a4d495d2e7129e476c2349d9820f08b3e36@ec2-3-234-109-123.compute-1.amazonaws.com:5432/dclie5pj83daos', conn_max_age=600)
 
 
 # Password validation
