@@ -8,6 +8,5 @@ class Note(models.Model):
     title = models.CharField(max_length=200)
     content = models.TextField(blank=True)
 
-#inheriting from notes class
-class PersonalNote(Note):
+class PersonalNote(Note):   # Inherits from Note!
     user = models.ForeignKey(User, on_delete=models.CASCADE)
