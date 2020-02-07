@@ -13,8 +13,6 @@ import random
 #     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
 
-
-
 room_dict = {
     'Lettuce' : 5,
     'Cucumber': 16,
@@ -40,6 +38,14 @@ class Room(models.Model):
     def __str__(self):
         string = f"{{'id': {self.id}, 'type': {self.room_type}, 'value': {self.value}, 'isDead': {self.isDead}}}"
         return string
+
+# initialize rooms
+for i in range(1,101):
+    r = Room()
+    r.id = i
+    r.room_type = random.choice(list(room_dict.keys()))
+    r.value = room_dict[r.room_type]
+    r.save()
 
 
 class Player(models.Model):

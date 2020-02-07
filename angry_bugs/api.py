@@ -74,13 +74,6 @@ from django.core.serializers.json import DjangoJSONEncoder
 @permission_classes((permissions.AllowAny,))
 def initialize(request):
     user = request.user
-    # initialize rooms
-    for i in range(1,101):
-        r = Room()
-        r.id = i
-        r.room_type = random.choice(list(room_dict.keys()))
-        r.value = room_dict[r.room_type]
-        r.save()
     user.player = Player()
     player = user.player
     def get_queryset(self):
