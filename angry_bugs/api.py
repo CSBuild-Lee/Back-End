@@ -60,7 +60,7 @@ def initialize(request):
     def get_queryset(self):
         user = self.request.user
 
-    rooms = Room.objects.all()
+    rooms = [room for room in Room.objects.all()]
     print(rooms)
     print(type(rooms))
     return JsonResponse({'rooms': str(rooms), 'value': player.calories, 'killed': player.num_rooms_eaten, 'room_id':1})

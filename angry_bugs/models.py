@@ -16,16 +16,16 @@ import random
 
 
 room_dict = {
-    'Lettuce' : 50,
-    'Cucumber': 160,
-    'Tomato': 180,
-    'Eggplant': 200,
-    'Carrot': 250,
-    'Pepper': 300,
-    'Broccoli': 500,
-    'Corn': 850,
-    'Potato': 1630,
-    'Yam': 1770,
+    'Lettuce' : 5,
+    'Cucumber': 16,
+    'Tomato': 18,
+    'Eggplant': 20,
+    'Carrot': 25,
+    'Pepper': 30,
+    'Broccoli': 50,
+    'Corn': 85,
+    'Potato': 163,
+    'Yam': 177,
 }
 
 class Room(models.Model):
