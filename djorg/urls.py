@@ -20,7 +20,6 @@ from django.conf.urls import url
 from rest_framework.authtoken import views
 
 from angry_bugs.api import *
-from djorg.api import *
 from .views import RegisterView, CustomLoginView
 
 router = routers.DefaultRouter()
