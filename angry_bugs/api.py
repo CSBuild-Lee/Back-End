@@ -13,6 +13,8 @@ from rest_framework.decorators import api_view, permission_classes
 from uuid import uuid4
 import random
 
+from django.core.serializers.json import DjangoJSONEncoder
+
 # class PersonalNoteSerializer(serializers.HyperlinkedModelSerializer):
 #     # Inner class nested inside PersonalNoteSerializer
 #     class Meta:
@@ -62,10 +64,16 @@ def initialize(request):
     def get_queryset(self):
         user = self.request.user
 
-    rooms = [room for room in Room.objects.all()]
+    # rooms = [room for room in Room.objects.all()]
     print(rooms)
     print(type(rooms))
-    return JsonResponse({'rooms': str(rooms), 'value': player.calories, 'killed': player.num_rooms_eaten, 'room_id':1})
+
+    rooms = Room.objects.all().values_list('id','type','value','isDead')
+    # prices = Price.objects.filter(product=product).values_list('price','valid_from')
+
+    rooms_json = json.dumps(list(rooms), cls=DjangoJSONEncoder)
+
+    return JsonResponse({'rooms': rooms, 'value': player.calories, 'killed': player.num_rooms_eaten, 'room_id':1})
 # @csrf_exempt
 # @api_view(["POST"])
 # @permission_classes((permissions.AllowAny,))
