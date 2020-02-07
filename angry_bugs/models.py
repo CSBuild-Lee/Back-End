@@ -16,21 +16,22 @@ import random
 
 
 room_dict = {
-    'Lettuce' : 50,
-    'Cucumber': 160,
-    'Tomato': 180,
-    'Eggplant': 200,
-    'Carrot': 250,
-    'Pepper': 300,
-    'Broccoli': 500,
-    'Corn': 850,
-    'Potato': 1630,
-    'Yam': 1770,
+    'Lettuce' : 5,
+    'Cucumber': 16,
+    'Tomato': 18,
+    'Eggplant': 20,
+    'Carrot': 25,
+    'Pepper': 30,
+    'Broccoli': 50,
+    'Corn': 85,
+    'Potato': 163,
+    'Yam': 177,
 }
 
 class Room(models.Model):
     # id?
-    room_type = models.CharField(max_length = 600 , default = random.choice(list(room_dict.keys())))
+    id = models.IntegerField(default=0)
+    room_type = models.CharField(max_length = 600 , default = 'default_type')
     # print(room_dict)
     # print(room_type)
     # print(dir(room_type))
@@ -38,12 +39,7 @@ class Room(models.Model):
     isDead = models.BooleanField(default=False)
 
     def __str__(self):
-        string = {
-            'id': self.id,
-            'type': self.room_type,
-            'value': self.value,
-            'isDead': self.isDead,
-            }
+        string = f"{{'id': {self.id}, 'type': {self.room_type}, 'value': {self.value}, 'isDead': {self.isDead},}}"
         return string
 
 class Player(models.Model):
@@ -100,7 +96,7 @@ class Player(models.Model):
         self.Room().isDead = True
         self.num_rooms_eaten += 1
 
-    def Room(self):
+    def room(self):
         return Room.objects.get(id=self.room_id)
 # objects to return
 
