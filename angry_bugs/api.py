@@ -77,7 +77,6 @@ def initialize(request):
         user = self.request.user
     # rooms = Room.objects.all().values_list('id','room_type','value','isDead')
     rooms = Room.objects.all().values()
-    print(rooms)
     rooms_json = json.dumps(list(rooms), cls=DjangoJSONEncoder)
     rooms_list = json.loads(rooms_json)
     return JsonResponse({'rooms': rooms_list, 'value': player.calories, 'killed': player.num_rooms_eaten, 'room_id':1})
