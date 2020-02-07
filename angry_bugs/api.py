@@ -112,4 +112,4 @@ def move(request):
     player.eat(direction)
     player.save()
     rooms = [room for room in Room.objects.all()]
-    return JsonResponse({'rooms': str(rooms), 'value': player.calories, 'killed': player.num_rooms_eaten, 'room_id':player.room_id})
+    return JsonResponse({'rooms': rooms, 'value': player.calories, 'killed': player.num_rooms_eaten, 'room_id':player.room_id})
