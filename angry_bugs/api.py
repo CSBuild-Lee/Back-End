@@ -1,8 +1,6 @@
 from rest_framework import serializers, viewsets
-# from .models import PersonalNote
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
-# from pusher import Pusher
 from django.http import JsonResponse
 from decouple import config
 from django.contrib.auth.models import User 
@@ -61,8 +59,9 @@ def initialize(request):
     def get_queryset(self):
         user = self.request.user
 
-    rooms = Room.objects.all().values_list('id','room_type','value','isDead')
-
+    # rooms = Room.objects.all().values_list('id','room_type','value','isDead')
+    rooms = Room.objects.all().values()
+    print(rooms)
     rooms_json = json.dumps(list(rooms), cls=DjangoJSONEncoder)
 
     rooms_list = json.loads(rooms_json)
@@ -115,7 +114,7 @@ def move(request):
     player.save()
 
     # getting list of rooms to return
-    rooms = Room.objects.all().values_list('id','room_type','value','isDead')
+    rooms = Room.objects.all().values()
     rooms_json = json.dumps(list(rooms), cls=DjangoJSONEncoder)
     rooms_list = json.loads(rooms_json)
 
