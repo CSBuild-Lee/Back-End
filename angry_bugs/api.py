@@ -52,9 +52,6 @@
 #     player.save()
 #     rooms = [room for room in Room.objects.all()]
 #     return JsonResponse({'rooms': rooms, 'value': player.calories, 'killed': player.num_rooms_eaten, 'room_id':player.room_id})
-
-
-
 from rest_framework import serializers, viewsets
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
@@ -78,7 +75,6 @@ def initialize(request):
     player = user.player
     def get_queryset(self):
         user = self.request.user
-
     # rooms = Room.objects.all().values_list('id','room_type','value','isDead')
     rooms = Room.objects.all().values()
     print(rooms)
