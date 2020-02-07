@@ -113,7 +113,12 @@ def move(request):
     direction = data['direction']
     player.eat(direction)
     player.save()
-    rooms = [room for room in Room.objects.all()]
-    return JsonResponse({'rooms': rooms, 'value': player.calories, 'killed': player.num_rooms_eaten, 'room_id':player.room_id})
+
+    # getting list of rooms to return
+    rooms = Room.objects.all().values_list('id','room_type','value','isDead')
+    rooms_json = json.dumps(list(rooms), cls=DjangoJSONEncoder)
+    rooms_list = json.loads(rooms_json)
+
+    return JsonResponse({'rooms': rooms_list, 'value': player.calories, 'killed': player.num_rooms_eaten, 'room_id':player.room_id})
 
     
