@@ -11,6 +11,7 @@ from .models import Room, room_dict, Player
 from rest_framework import permissions
 from rest_framework.decorators import api_view, permission_classes
 from uuid import uuid4
+import random
 
 # class PersonalNoteSerializer(serializers.HyperlinkedModelSerializer):
 #     # Inner class nested inside PersonalNoteSerializer
@@ -49,13 +50,14 @@ def initialize(request):
     for i in range(1,101):
         r = Room()
         r.id = i
+        r.room_type = random.choice(list(room_dict.keys()))
         r.value = room_dict[r.room_type]
         r.save()
     user.player = Player()
     player = user.player
-    player_id = player.id
-    # uuid4 = player.uuid
-    room = player.room()
+    # player_id = player.id
+    # # uuid4 = player.uuid
+    # room = player.room()
 
     def get_queryset(self):
         user = self.request.user
@@ -109,5 +111,5 @@ def move(request):
     direction = data['direction']
     player.eat(direction)
     player.save()
-    rooms = Room.objects.all()
+    rooms = [room for room in Room.objects.all()]
     return JsonResponse({'rooms': str(rooms), 'value': player.calories, 'killed': player.num_rooms_eaten, 'room_id':player.room_id})

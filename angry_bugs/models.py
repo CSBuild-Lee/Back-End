@@ -31,7 +31,7 @@ room_dict = {
 class Room(models.Model):
     # id?
     id = models.IntegerField(default=0, primary_key=True)
-    room_type = models.CharField(max_length = 600 , default = random.choice(list(room_dict.keys())))
+    room_type = models.CharField(max_length = 600 , default = 'default_type')
     # print(room_dict)
     # print(room_type)
     # print(dir(room_type))
