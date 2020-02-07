@@ -10,6 +10,7 @@ import json
 from .models import Room, room_dict, Player
 from rest_framework import permissions
 from rest_framework.decorators import api_view, permission_classes
+import random
 
 # class PersonalNoteSerializer(serializers.HyperlinkedModelSerializer):
 #     # Inner class nested inside PersonalNoteSerializer
@@ -47,20 +48,19 @@ def initialize(request):
     # initialize rooms
     for i in range(1,101):
         r = Room()
-        r.id = 1
+        r.id = i
+        r.room_type = random.choice(list(room_dict.keys()))
         r.value = room_dict[r.room_type]
         r.save()
     user.player = Player()
     player = user.player
-    player_id = player.id
-    uuid = player.uuid
-    room = player.room()
 
     def get_queryset(self):
         user = self.request.user
 
+    rooms = [room for room in Room.objects.all()]
     rooms = Room.objects.all()
-    return JsonResponse({rooms, {'value': player.calories, 'killed': player.num_rooms_eaten}, {'room_id':1}})
+    return JsonResponse({'rooms': list(rooms), 'value': player.calories, 'killed': player.num_rooms_eaten, 'room_id':1})
 
 
 # @csrf_exempt
@@ -69,32 +69,10 @@ def initialize(request):
 def move(request):
 
     player = request.user.player
-    player_id = player.id
-    player_uuid = player.uuid
     data = json.loads(request.body)
     direction = data['direction']
-    room = player.room()
-    nextRoomID = None
-    if direction == "n":
-        nextRoomID = room.n_to
-    elif direction == "s":
-        nextRoomID = room.s_to
-    elif direction == "e":
-        nextRoomID = room.e_to
-    elif direction == "w":
-        nextRoomID = room.w_to
-    if nextRoomID is not None and nextRoomID > 0:
-        nextRoom = Room.objects.get(id=nextRoomID)
-        player.currentRoom=nextRoomID
-        player.save()
-        players = nextRoom.playerNames(player_id)
-        currentPlayerUUIDs = room.playerUUIDs(player_id)
-        nextPlayerUUIDs = nextRoom.playerUUIDs(player_id)
-        for p_uuid in currentPlayerUUIDs:
-            pusher.trigger(f'p-channel-{p_uuid}', u'broadcast', {'message':f'{player.user.username} has walked {dirs[direction]}.'})
-        for p_uuid in nextPlayerUUIDs:
-            pusher.trigger(f'p-channel-{p_uuid}', u'broadcast', {'message':f'{player.user.username} has entered from the {reverse_dirs[direction]}.'})
-        return JsonResponse({'name':player.user.username, 'title':nextRoom.title, 'description':nextRoom.description, 'players':players, 'error_msg':""}, safe=True)
-    else:
-        players = room.playerNames(player_id)
-        return JsonResponse({'name':player.user.username, 'title':room.title, 'description':room.description, 'players':players, 'error_msg':"You cannot move that way."}, safe=True)
+    player.eat(direction)
+    player.save()
+    rooms = Room.objects.all()
+
+    return JsonResponse({'rooms': str(rooms), 'value': player.calories, 'killed': player.num_rooms_eaten, 'room_id':player.room_id})
