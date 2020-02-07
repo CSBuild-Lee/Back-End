@@ -57,23 +57,17 @@ def initialize(request):
         r.save()
     user.player = Player()
     player = user.player
-    # player_id = player.id
-    # # uuid4 = player.uuid
-    # room = player.room()
 
     def get_queryset(self):
         user = self.request.user
 
-    # rooms = [room for room in Room.objects.all()]
-    print(rooms)
-    print(type(rooms))
-
-    rooms = Room.objects.all().values_list('id','type','value','isDead')
-    # prices = Price.objects.filter(product=product).values_list('price','valid_from')
+    rooms = Room.objects.all().values_list('id','room_type','value','isDead')
 
     rooms_json = json.dumps(list(rooms), cls=DjangoJSONEncoder)
 
-    return JsonResponse({'rooms': rooms, 'value': player.calories, 'killed': player.num_rooms_eaten, 'room_id':1})
+    rooms_list = json.loads(rooms_json)
+
+    return JsonResponse({'rooms': rooms_list, 'value': player.calories, 'killed': player.num_rooms_eaten, 'room_id':1})
 # @csrf_exempt
 # @api_view(["POST"])
 # @permission_classes((permissions.AllowAny,))
@@ -121,3 +115,5 @@ def move(request):
     player.save()
     rooms = [room for room in Room.objects.all()]
     return JsonResponse({'rooms': rooms, 'value': player.calories, 'killed': player.num_rooms_eaten, 'room_id':player.room_id})
+
+    
