@@ -44,9 +44,7 @@ from django.core.serializers.json import DjangoJSONEncoder
 @api_view(["GET"])
 @permission_classes((permissions.AllowAny,))
 def initialize(request):
-
     user = request.user
-
     # initialize rooms
     for i in range(1,101):
         r = Room()
@@ -59,13 +57,14 @@ def initialize(request):
     # player_id = player.id
     # # uuid4 = player.uuid
     # room = player.room()
-
     def get_queryset(self):
+        user = self.request.user
     rooms = Room.objects.all().values_list('id','room_type','value','isDead')
     # prices = Price.objects.filter(product=product).values_list('price','valid_from')
     # rooms = [room for room in Room.objects.all()]
     print(rooms)
     rooms_json = json.dumps(list(rooms), cls=DjangoJSONEncoder)
+    # rooms_json = rooms_json[1:-1]
     print(rooms_json)
     return JsonResponse({'rooms': rooms_json, 'value': player.calories, 'killed': player.num_rooms_eaten, 'room_id':1})
 
